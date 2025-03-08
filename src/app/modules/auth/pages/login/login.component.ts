@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   hidePassword: boolean = true;
   loader :boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -31,6 +32,8 @@ export class LoginComponent implements OnInit {
 
     setTimeout(() => {
       this.loader = false;
+      this.router.navigate(['/tasks']);
+
     }, 5000);
 
     if (this.loginForm.valid) {
