@@ -118,3 +118,7 @@ a {
 .mat-form-field.mat-focused .mat-form-field-label {
   color: var(--primary-color);
 }
+
+.mat-form-field-wrapper {
+  padding: 0;
+}
