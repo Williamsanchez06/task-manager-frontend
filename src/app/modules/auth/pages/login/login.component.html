@@ -1,0 +1,42 @@
+<div class="container-loader-login" *ngIf="loader">
+  <div class="loader-login">
+    <img src="assets/images/auth/auth-loader.gif" alt="gif loader">
+  </div>
+</div>
+<div class="wrapper-login">
+
+  <div class="wrapper-banner">
+    <img src="assets/images/auth/logic-task.png" alt="logic task">
+  </div>
+
+  <form class="wrapper-form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <span class="title">¡Bienvenido de nuevo!</span>
+    <span class="subtitle">Ingresa tus credenciales y continúa gestionando tus tareas de manera eficiente.</span>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input matInput type="text" formControlName="email">
+      <mat-icon matSuffix>mail</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+        <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <!-- Botón de Login -->
+    <div class="btn-design" (click)="onLogin()">
+      <mat-icon>login</mat-icon> Iniciar sesión
+    </div>
+
+    <p class="register-text">
+      ¿No tienes una cuenta?
+      <a routerLink="/register">Regístrate aquí</a>
+    </p>
+
+  </form>
+</div>
+

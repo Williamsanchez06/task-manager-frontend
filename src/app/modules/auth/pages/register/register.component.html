@@ -1,0 +1,47 @@
+<div class="wrapper-register">
+  <div class="register-banner">
+    <img src="assets/images/auth/register.svg" alt="logic task">
+  </div>
+
+  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <span class="title">Registro de Usuario</span>
+    <span class="subtitle">¡Bienvenido! Registra tu cuenta para comenzar.</span>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" formControlName="name">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input matInput type="email" formControlName="email">
+      <mat-icon matSuffix>mail</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+        <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Confirmar Contraseña</mat-label>
+      <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+      <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPasswordVisibility()">
+        <mat-icon>{{ hideConfirmPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="btn-design" (click)="onRegister()">
+      <mat-icon>how_to_reg</mat-icon> Registrarse
+    </div>
+
+    <p class="login-text">
+      ¿Ya tienes una cuenta?
+      <a routerLink="/login">Inicia sesión aquí</a>
+    </p>
+  </form>
+</div>
