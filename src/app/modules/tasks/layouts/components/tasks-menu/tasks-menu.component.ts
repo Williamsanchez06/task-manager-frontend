@@ -12,4 +12,7 @@ export class TasksMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout(): void {
+  }
+
 }

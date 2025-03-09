@@ -2,4 +2,8 @@
   <button mat-button routerLink="/tasks/my" routerLinkActive="active">Mis Tareas</button>
   <button mat-button routerLink="/tasks/received" routerLinkActive="active">Tareas Recibidas</button>
   <button mat-button routerLink="/tasks/shared" routerLinkActive="active">Tareas Compartidas</button>
+  <span class="spacer"></span>
+  <button mat-button (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon> Cerrar Sesión
+  </button>
 </mat-toolbar>
