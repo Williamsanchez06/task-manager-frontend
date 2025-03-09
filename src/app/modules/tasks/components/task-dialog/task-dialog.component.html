@@ -1,0 +1,67 @@
+<div class="wrapper-task">
+  <div class="task__header">
+    <div class="task__header-text">
+      <span class="task__title">
+        {{ isEditMode ? 'Editar Tarea' : 'Registrar una nueva tarea' }}
+      </span>
+      <span class="task__subtitle">
+        {{ isEditMode
+        ? 'Modifica los detalles de la tarea para actualizar su información.'
+        : 'Completa los detalles de la tarea para un mejor seguimiento y gestión.'
+        }}
+      </span>
+    </div>
+
+    <div class="close" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+
+  <form class="wrapper-form" [formGroup]="taskForm">
+    <!-- Campo Título -->
+    <mat-form-field appearance="outline">
+      <mat-label>Título</mat-label>
+      <input matInput type="text" formControlName="title">
+      <mat-icon matSuffix>title</mat-icon>
+    </mat-form-field>
+
+    <!-- Campo Descripción -->
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <!-- Campo Estado -->
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="pending">Pendiente</mat-option>
+        <mat-option value="completed">Completada</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Sección de Transferencia -->
+    <mat-form-field appearance="outline">
+      <mat-label>Transferir esta tarea</mat-label>
+      <mat-select formControlName="transfer">
+        <mat-option value="no">No</mat-option>
+        <mat-option value="yes">Sí</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Select para seleccionar el usuario, se muestra solo si se selecciona "Sí" -->
+    <mat-form-field appearance="outline" *ngIf="taskForm.get('transfer')?.value === 'yes'">
+      <mat-label>Selecciona el usuario</mat-label>
+      <mat-select formControlName="transferUser">
+        <mat-option *ngFor="let user of users" [value]="user">
+          {{ user.name }} - {{ user.email }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Botón para guardar o actualizar la tarea -->
+    <div class="btn-design" (click)="onSaveTask()">
+      <mat-icon>check</mat-icon> {{ isEditMode ? 'Actualizar Tarea' : 'Guardar Tarea' }}
+    </div>
+  </form>
+</div>

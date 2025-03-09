@@ -1,0 +1,25 @@
+.task__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.task__header-text{
+  display: flex;
+  flex-direction: column;
+  row-gap: .5rem;
+}
+
+.task__title {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+.task__subtitle {
+  font-size: 14px;
+}
+
+.close {
+  cursor: pointer;
+}

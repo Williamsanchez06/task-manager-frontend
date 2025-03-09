@@ -1,0 +1,19 @@
+<app-data-table
+  [tableTitle]="'Lista de tareas'"
+  [columns]="columns"
+  [data]="data"
+  [totalRecords]="totalRecords"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  [showSearch]="showSearch"
+  [searchQuery]="searchQuery"
+  [searchPlaceholder]="'Buscar por estado'"
+  [showRegister]="showRegister"
+  (pageChange)="onPageChange($event)"
+  (search)="onSearch($event)"
+  (registerClick)="onRegisterClick()"
+  (editClick)="onEdit($event)"
+  (deleteClick)="onDelete($event)"
+>
+</app-data-table>
