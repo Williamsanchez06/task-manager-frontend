@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Observable, of, throwError} from 'rxjs';
-import {Task} from "../interfaces/tasks.interface";
+import {Task} from "../../../interfaces/tasks.interface";
 import { delay } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
-import {TaskResponse} from "../interfaces/tasks.interface";
+import {TaskResponse} from "../../../interfaces/tasks.interface";
 
 @Injectable({
   providedIn: 'root'
