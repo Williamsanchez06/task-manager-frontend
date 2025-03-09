@@ -54,6 +54,12 @@ export class DataTableComponent implements OnInit, OnChanges {
   registerLabel = 'Registrar';
 
   /**
+   * Controlar "acciones".
+   */
+  @Input() delete?:boolean = true;
+  @Input() edit?:boolean = true;
+
+  /**
    * Mensaje e imagen cuando no hay datos.
    */
   noDataMessage = 'No hay datos que mostrar';
@@ -80,16 +86,27 @@ export class DataTableComponent implements OnInit, OnChanges {
     if (changes['data']) {
       this.dataSource.data = this.data;
     }
-    // Si cambian las columnas, se recalcula displayedColumns.
-    if (changes['columns']) {
-      this.displayedColumns = this.columns.map(col => col.key).concat('actions');
+    // Si cambian las columnas o las acciones, se recalcula displayedColumns.
+    if (changes['columns'] || changes['edit'] || changes['delete']) {
+      this.updateDisplayedColumns();
     }
   }
 
   private initTable(): void {
     this.dataSource.data = this.data;
-    this.displayedColumns = this.columns.map(col => col.key).concat('actions');
+    this.updateDisplayedColumns();
   }
+
+  private updateDisplayedColumns(): void {
+    // Tomamos las columnas normales
+    this.displayedColumns = this.columns.map(col => col.key);
+
+    // Agregamos "actions" solo si `edit` o `delete` están en `true`
+    if (this.edit || this.delete) {
+      this.displayedColumns.push('actions');
+    }
+  }
+
 
   onPageChange(event: PageEvent): void {
     this.pageChange.emit(event);

@@ -37,12 +37,12 @@
 
       <!-- Columna de acciones -->
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Opciones</th>
+        <th mat-header-cell *matHeaderCellDef >Opciones</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="accent" (click)="onEdit(element)">
+          <button mat-icon-button color="accent" *ngIf="edit" (click)="onEdit(element)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="onDelete(element)">
+          <button mat-icon-button color="warn" *ngIf="delete" (click)="onDelete(element)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
