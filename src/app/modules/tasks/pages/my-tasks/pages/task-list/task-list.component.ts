@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { TaskDialogComponent } from '../../../../components/task-dialog/task-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskService } from '../../../../services/task.service';
-import {DataTableColumn} from "../../../../../../core/interfaces/data-table.interface";
-import {Task} from "../../../../interfaces/tasks.interface";
-
+import { TaskService } from '../../services/task.service';
+import { DataTableColumn } from "../../../../../../core/interfaces/data-table.interface";
+import { TasksI } from "../../interfaces/tasks.interface";
+import {AddTaskDialogComponent} from "../../components/add-task-dialog/add-task-dialog.component";
+import {UpdateTaskDialogComponent} from "../../components/update-task-dialog/update-task-dialog.component";
+import {DeleteTaskDialogComponent} from "../../components/delete-task-dialog/delete-task-dialog.component";
 
 @Component({
   selector: 'app-task-list',
@@ -17,10 +18,11 @@ export class TaskListComponent implements OnInit {
   columns: DataTableColumn[] = [
     { key: 'title', label: 'Título' },
     { key: 'status', label: 'Estado' },
-    { key: 'createdAt', label: 'Fecha de Creación' }
+    { key : 'description', label: 'Descripción' },
+    { key: 'createdAt', label: 'Fecha de Creación' },
   ];
 
-  data: Task[] = [];
+  data: TasksI[] = [];
 
   // Parámetros de paginación.
   totalRecords = 0;
@@ -35,67 +37,79 @@ export class TaskListComponent implements OnInit {
   // Control del botón "Registrar" para crear tarea.
   showRegister = true;
 
-  constructor(private taskService: TaskService, private dialog: MatDialog) {}
+  constructor(
+    private taskService: TaskService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.loadTasks();
   }
 
+  // Carga la lista de tareas con paginación y búsqueda
   loadTasks(): void {
     this.taskService.getTasks(this.pageIndex + 1, this.pageSize, this.searchQuery)
       .subscribe(response => {
+        console.log(response)
         this.data = response.tasks;
         this.totalRecords = response.total;
       });
   }
 
+  // Cambia de página en la tabla
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadTasks();
   }
 
+  // Maneja la búsqueda
   onSearch(query: string): void {
     this.searchQuery = query;
-    this.pageIndex = 0; // Resetea a la primera página
+    this.pageIndex = 0;
     this.loadTasks();
   }
 
-  // Método para crear una tarea
+  // Abre el modal para crear una tarea
   onRegisterClick(): void {
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
+    const dialogRef = this.dialog.open(AddTaskDialogComponent, {
       width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Llama al servicio para crear la tarea y recarga la lista.
-        this.taskService.createTask(result).subscribe(() => {
-          this.loadTasks();
-        });
+        this.loadTasks();
       }
     });
+
   }
 
-  // Método para editar una tarea
-  onEdit(item: Task): void {
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
+  // Abre el modal para editar una tarea
+  onEdit(item: TasksI): void {
+    const dialogRef = this.dialog.open(UpdateTaskDialogComponent, {
       width: '600px',
       data: item
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Llama al servicio para actualizar la tarea y recarga la lista.
-        this.taskService.updateTask(item.id, result).subscribe(() => {
-          this.loadTasks();
-        });
+        this.loadTasks();
+      }
+    });
+
+  }
+
+  onDelete(item: TasksI): void {
+    const dialogRef = this.dialog.open(DeleteTaskDialogComponent, {
+      width: '400px',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadTasks();
       }
     });
   }
 
-  // Método para eliminar una tarea
-  onDelete(item: Task): void {
-    console.log('Eliminar', item);
-  }
 }

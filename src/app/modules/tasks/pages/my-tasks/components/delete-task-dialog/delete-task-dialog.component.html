@@ -1,0 +1,9 @@
+<div class="delete-task-dialog">
+  <h2>¿Estás seguro de que deseas eliminar la tarea:  {{task.title}} ?</h2>
+  <p>Esta acción no se puede deshacer.</p>
+
+  <div class="dialog-actions">
+    <button mat-button color="warn" (click)="onDelete()">Eliminar</button>
+    <button mat-button (click)="onCancel()">Cancelar</button>
+  </div>
+</div>

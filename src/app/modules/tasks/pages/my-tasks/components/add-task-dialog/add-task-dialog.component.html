@@ -1,0 +1,41 @@
+<div class="wrapper-task">
+  <div class="task__header">
+    <div class="task__header-text">
+      <span class="task__title"> Registrar una nueva tarea </span>
+      <span class="task__subtitle">Completa los detalles de la tarea para un mejor seguimiento y gestión.</span>
+    </div>
+
+    <div class="close" (click)="onCancel()">
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+
+  <form class="wrapper-form" [formGroup]="registerTaskForm">
+    <!-- Campo Título -->
+    <mat-form-field appearance="outline">
+      <mat-label>Título</mat-label>
+      <input matInput type="text" formControlName="title">
+      <mat-icon matSuffix>title</mat-icon>
+    </mat-form-field>
+
+    <!-- Campo Descripción -->
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <!-- Campo Estado -->
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="PENDIENTE">Pendiente</mat-option>
+        <mat-option value="COMPLETADO">Completada</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Botón para guardar o actualizar la tarea -->
+    <div class="btn-design" (click)="onSaveTask()">
+      <mat-icon>check</mat-icon> Guardar Tarea
+    </div>
+  </form>
+</div>

@@ -4,7 +4,7 @@
   margin-bottom: 2rem;
 }
 
-.task__header-text{
+.task__header-text {
   display: flex;
   flex-direction: column;
   row-gap: .5rem;

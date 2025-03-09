@@ -4,11 +4,13 @@ import {TaskListComponent} from "./pages/my-tasks/pages/task-list/task-list.comp
 import {SharedTasksComponent} from "./pages/shared-tasks/pages/shared-tasks/shared-tasks.component";
 import {ReceivedTasksComponent} from "./pages/received-tasks/pages/received-tasks/received-tasks.component";
 import {TasksLayoutComponent} from "./layouts/tasks-layout/tasks-layout.component";
+import {AuthGuard} from "../../core/guards/auth/auth.guard";
 
 const routes: Routes = [
   {
     path: '',
     component: TasksLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'my', pathMatch: 'full' },
       { path: 'my', component: TaskListComponent },
