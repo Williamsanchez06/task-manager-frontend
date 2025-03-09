@@ -5,10 +5,8 @@ import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatTableModule} from "@angular/material/table";
-import {FormsModule} from "@angular/forms";
-import {MatInputModule} from "@angular/material/input";
-import {MatPaginatorModule} from "@angular/material/paginator";
+import {HttpClientModule} from "@angular/common/http";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -19,10 +17,11 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    FormsModule,
-    MatInputModule,
-    MatPaginatorModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
