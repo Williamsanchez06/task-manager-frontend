@@ -5,8 +5,9 @@ import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ToastrModule} from "ngx-toastr";
+import {AuthInterceptor} from "./core/interceptors/auth/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import {ToastrModule} from "ngx-toastr";
       preventDuplicates: true,
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
