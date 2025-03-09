@@ -44,7 +44,7 @@ export class DataTableComponent implements OnInit, OnChanges {
    * Controlar la búsqueda.
    */
   @Input() showSearch = true;
-  searchPlaceholder = 'Buscar';
+  @Input() searchPlaceholder = 'Buscar';
   @Input() searchQuery = '';
 
   /**
