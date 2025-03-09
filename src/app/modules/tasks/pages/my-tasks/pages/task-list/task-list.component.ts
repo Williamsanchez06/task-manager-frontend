@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { TaskDialogComponent } from '../../components/task-dialog/task-dialog.component';
+import { TaskDialogComponent } from '../../../../components/task-dialog/task-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskService } from '../../services/task.service';
+import { TaskService } from '../../../../services/task.service';
 import {DataTableColumn} from "../../../../../../core/interfaces/data-table.interface";
 import {Task} from "../../../../interfaces/tasks.interface";
 
