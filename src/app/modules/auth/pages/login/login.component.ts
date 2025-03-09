@@ -22,8 +22,8 @@ export class LoginComponent implements OnInit {
     private alertService: AlertService,
   ) {
     this.loginForm = this.fb.group({
-      email: ['sanchezalvarez@HOT.com', [Validators.required, Validators.email]],
-      password: ['Polaris123*', [Validators.required, Validators.minLength(8)]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
