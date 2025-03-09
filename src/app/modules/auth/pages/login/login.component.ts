@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
+
     if (this.loginForm.invalid) {
       this.alertService.error('Por favor, completa los campos.');
       this.loginForm.markAllAsTouched();
@@ -44,12 +45,19 @@ export class LoginComponent implements OnInit {
 
     const { email, password } = this.loginForm.value;
 
-    this.authService.login(email, password).subscribe(response => {
-      if (response) {
-        this.alertService.success('Inciaste sesión correctamente.');
-        this.router.navigate(['/tasks']);
+    this.authService.login(email, password).subscribe(
+      response => {
+        if (response) {
+          this.alertService.success('Iniciaste sesión correctamente.');
+          this.router.navigate(['/tasks']);
+        }
+        this.loader = false;
+      },
+      error => {
+        this.loader = false;
+        this.alertService.error(error.error.message);
       }
-      this.loader = false;
-    });
+    );
+
   }
 }
