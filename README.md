@@ -1,27 +1,90 @@
-# TaskManagerFrontend
+# Gestión de Tareas - Aplicación Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.11.
+Esta aplicación es una solución completa para la gestión de tareas, desarrollada con Angular 13. Permite a los usuarios registrarse e iniciar sesión mediante JWT, y realizar operaciones CRUD sobre tareas. Además, los usuarios pueden compartir tareas con otros, listar sus propias tareas y ver las tareas que se les han compartido.
 
-## Development server
+## Características
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Autenticación y Registro:**
+  - Registro de usuarios.
+  - Inicio de sesión con JWT para la autenticación.
 
-## Code scaffolding
+- **Gestión de Tareas:**
+  - Crear, editar y eliminar tareas.
+  - Marcar tareas como completadas o pendientes.
+  - Compartir tareas con otros usuarios mediante invitaciones.
+  - Listado de tareas propias (con paginación y búsqueda).
+  - Listado de tareas compartidas.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Estado Global:**
+  - Implementación de un store basado en `BehaviorSubject` para centralizar el manejo del estado de las tareas.
+  - Sincronización automática entre componentes al actualizar el estado.
 
-## Build
+- **Buenas Prácticas:**
+  - Arquitectura modular y separación de responsabilidades.
+  - Uso de Angular Material para la interfaz de usuario.
+  - Manejo adecuado de errores y validaciones.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Tecnologías Utilizadas
 
-## Running unit tests
+- **Frontend:**
+  - Angular 13
+  - TypeScript
+  - RxJS
+  - Angular Material
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Autenticación:**
+  - JWT
 
-## Running end-to-end tests
+- **Control de Estado:**
+  - Store basado en `BehaviorSubject` para centralizar las tareas.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Instalación y Configuración
 
-## Further help
+### Requisitos
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Node.js (v14 o superior)
+- npm o yarn
+
+### Pasos de Instalación
+
+1. **Clonar el repositorio:**
+
+   ```bash
+   git clone https://github.com/Williamsanchez06/task-manager-frontend.git
+   cd task-manager-frontend
+   ```
+
+2. **Instalar dependencias:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configurar variables de entorno:**
+
+   Crea o edita el archivo `src/environments/environment.ts` y configura la URL de la API (por ejemplo, `apiUrl`) y otros parámetros necesarios para la autenticación JWT.
+
+4. **Ejecutar la aplicación:**
+
+   ```bash
+   ng serve
+   ```
+
+   La aplicación se ejecutará en `http://localhost:4200`.
+
+## Uso de la Aplicación
+
+- **Registro y Login:**
+  - Accede a la sección de autenticación para registrarte o iniciar sesión. El sistema utilizará JWT para manejar la sesión.
+
+- **Gestión de Tareas:**
+  - Una vez autenticado, el usuario puede:
+    - Crear nuevas tareas.
+    - Editar y eliminar tareas existentes.
+    - Compartir tareas con otros usuarios.
+    - Consultar el listado de sus tareas, con soporte para paginación y búsqueda.
+    - Visualizar las tareas que han sido compartidas con él.
+
+## Estado Global y Control de Tareas
+
+La aplicación utiliza un **store** basado en `BehaviorSubject` para centralizar el estado de las tareas. Esto permite que cualquier operación CRUD (crear, actualizar, eliminar o compartir) se refleje de inmediato en toda la aplicación.

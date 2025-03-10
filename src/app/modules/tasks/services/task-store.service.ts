@@ -5,7 +5,7 @@ import { TaskRequestCreate, TaskRequestUpdate, TasksI } from '../interfaces/task
 import { TaskService } from './task.service';
 import { MyTaskService } from './my-task.service';
 import { ReceivedTaskService } from './received-task.service';
-import { TaskI } from '../pages/received-tasks/interfaces/received-tasks'; // Suponiendo que TaskI es el tipo de las tareas compartidas
+import { TaskI } from '../pages/received-tasks/interfaces/received-tasks';
 
 @Injectable({
   providedIn: 'root'
