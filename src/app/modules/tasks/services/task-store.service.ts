@@ -45,7 +45,7 @@ export class TasksStoreService {
   // Cargar tareas compartidas y actualizar el estado global
   loadSharedTasks(page: number, pageSize: number): void {
     this.receivedTaskService.getSharedTasks(page, pageSize).subscribe(response => {
-      // La API retorna las tareas compartidas en response.tasks y el total en response.total
+      console.log('Tareas compartidas recibidas:', response.tasks); // Verifica la respuesta
       this.sharedTasksSubject.next(response.tasks);
       this.totalSharedRecordsSubject.next(response.total);
     });
@@ -83,8 +83,16 @@ export class TasksStoreService {
     );
   }
 
-  // Compartir (transferir) una tarea (para tareas propias)
+  // compartir una tarea y actualizar el estado global
   shareTask(taskId: string, sharedUserId: string): Observable<any> {
-    return this.taskService.shareTask(taskId, sharedUserId);
+    return this.taskService.shareTask(taskId, sharedUserId).pipe(
+      tap(() => {
+        this.receivedTaskService.getSharedTasks(1, 10).subscribe(response => {
+          this.sharedTasksSubject.next(response.tasks);
+          this.totalSharedRecordsSubject.next(response.total);
+        });
+      })
+    );
   }
+
 }

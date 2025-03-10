@@ -112,6 +112,7 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
       transferUserControl.markAsTouched();
       return;
     }
+
     const { id, transferUser } = this.updateTaskForm.getRawValue();
 
     this.tasksStore.shareTask(id, transferUser)

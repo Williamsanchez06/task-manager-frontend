@@ -40,14 +40,14 @@ export class ReceivedTasksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Suscribirse al observable de tareas compartidas
     this.tasksStore.sharedTasks$.subscribe(tasks => {
       this.data = tasks;
     });
-    // Suscribirse al total de registros de tareas compartidas
+
     this.tasksStore.totalSharedRecords$.subscribe(total => {
       this.totalRecords = total;
     });
+
     this.loadTasks();
   }
 
