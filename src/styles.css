@@ -122,3 +122,19 @@ a {
 .mat-form-field-wrapper {
   padding: 0;
 }
+
+/*
+  Estilos para mensajes de error generados por la directiva appValidateErrors
+*/
+.form-error {
+  position: absolute;
+  bottom: -1rem;
+  right: 0;
+  display: inline-block;
+  color: red;
+  margin: .4rem .4rem 0 0;
+  font-weight: 400;
+  height: .8rem;
+  font-size: 1.2rem;
+}
+

@@ -7,11 +7,15 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
+import {MessageErrorsDirective} from "./directives/field-errors/directive/message-errors.directive";
+import {TemplateErrorComponent} from "./directives/field-errors/template-error/template-error.component";
 
 
 @NgModule({
   declarations: [
-    DataTableComponent
+    DataTableComponent,
+    MessageErrorsDirective,
+    TemplateErrorComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +27,8 @@ import {MatIconModule} from "@angular/material/icon";
     MatInputModule
   ],
   exports: [
-    DataTableComponent
+    DataTableComponent,
+    MessageErrorsDirective
   ]
 })
 export class SharedModule {
