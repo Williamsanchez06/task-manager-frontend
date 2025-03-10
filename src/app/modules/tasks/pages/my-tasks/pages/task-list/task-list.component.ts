@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskService } from '../../services/task.service';
+import { MyTaskService } from '../../services/my-task.service';
 import { DataTableColumn } from "../../../../../../core/interfaces/data-table.interface";
-import { TasksI } from "../../interfaces/tasks.interface";
+import { TasksI } from "../../../../interfaces/tasks.interface";
 import {AddTaskDialogComponent} from "../../components/add-task-dialog/add-task-dialog.component";
-import {UpdateTaskDialogComponent} from "../../components/update-task-dialog/update-task-dialog.component";
-import {DeleteTaskDialogComponent} from "../../components/delete-task-dialog/delete-task-dialog.component";
+import {UpdateTaskDialogComponent} from "../../../../components/update-task-dialog/update-task-dialog.component";
+import {DeleteTaskDialogComponent} from "../../../../components/delete-task-dialog/delete-task-dialog.component";
 
 @Component({
   selector: 'app-task-list',
@@ -38,7 +38,7 @@ export class TaskListComponent implements OnInit {
   showRegister = true;
 
   constructor(
-    private taskService: TaskService,
+    private taskService: MyTaskService,
     private dialog: MatDialog
   ) {}
 

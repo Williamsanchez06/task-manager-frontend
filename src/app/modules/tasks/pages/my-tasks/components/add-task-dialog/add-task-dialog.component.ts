@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {TaskService} from "../../services/task.service";
+import {MyTaskService} from "../../services/my-task.service";
 import {AlertService} from "../../../../../../core/services/alert/alert.service";
-import {TaskRequestCreate, TasksI} from "../../interfaces/tasks.interface";
+import {TaskRequestCreate} from "../../interfaces/my-task.interface";
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -17,7 +17,7 @@ export class AddTaskDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddTaskDialogComponent>,
-    private taskService: TaskService,
+    private taskService: MyTaskService,
     private alertService: AlertService
   ) {
     this.registerTaskForm = this.fb.group({

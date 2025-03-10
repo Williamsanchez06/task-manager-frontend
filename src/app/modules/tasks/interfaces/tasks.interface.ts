@@ -22,8 +22,6 @@ export interface TaskBase {
   status: TaskStatus;
 }
 
-export interface TaskRequestCreate extends TaskBase {}
-
 export interface TaskRequestUpdate extends Partial<TaskBase> {}
 
 export interface User {

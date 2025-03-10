@@ -16,9 +16,8 @@ import { TasksLayoutComponent } from './layouts/tasks-layout/tasks-layout.compon
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { TasksMenuComponent } from './layouts/components/tasks-menu/tasks-menu.component';
 import { AddTaskDialogComponent } from './pages/my-tasks/components/add-task-dialog/add-task-dialog.component';
-import { UpdateTaskDialogComponent } from './pages/my-tasks/components/update-task-dialog/update-task-dialog.component';
-import { DeleteTaskDialogComponent } from './pages/my-tasks/components/delete-task-dialog/delete-task-dialog.component';
-
+import { UpdateTaskDialogComponent } from './components/update-task-dialog/update-task-dialog.component';
+import { DeleteTaskDialogComponent } from './components/delete-task-dialog/delete-task-dialog.component';
 
 
 @NgModule({
@@ -30,7 +29,7 @@ import { DeleteTaskDialogComponent } from './pages/my-tasks/components/delete-ta
     TasksMenuComponent,
     AddTaskDialogComponent,
     UpdateTaskDialogComponent,
-    DeleteTaskDialogComponent,
+    DeleteTaskDialogComponent
   ],
   imports: [
     CommonModule,

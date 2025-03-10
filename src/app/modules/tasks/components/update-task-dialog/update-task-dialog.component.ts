@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import {TaskRequestCreate, TaskRequestUpdate, TasksI, User} from "../../interfaces/tasks.interface";
-import { TaskService } from "../../services/task.service";
-import { AlertService } from "../../../../../../core/services/alert/alert.service";
+import { AlertService } from "../../../../core/services/alert/alert.service";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import {TaskRequestUpdate, TasksI, User} from "../../interfaces/tasks.interface";
+import {TaskService} from "../../services/task.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-update-task-dialog',
@@ -25,6 +26,7 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<UpdateTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data : TasksI,
     private taskService: TaskService,
+    private userService: UserService,
     private alertService: AlertService
   ) {
     this.updateTaskForm = this.fb.group({
@@ -66,7 +68,7 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
   }
 
   loadUsers(): void {
-    this.taskService.getUser().subscribe({
+    this.userService.getUser().subscribe({
       next: ({ data }) => {
         this.users = data;
       },

@@ -1,1 +1,18 @@
-<p>received-tasks works!</p>
+<app-data-table
+  [tableTitle]="'Lista de tareas recibidas'"
+  [columns]="columns"
+  [data]="data"
+  [totalRecords]="totalRecords"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  [showSearch]="showSearch"
+  [searchQuery]="''"
+  [showRegister]="showRegister"
+  (pageChange)="onPageChange($event)"
+  [edit]="true"
+  [delete]="true"
+  (editClick)="onEdit($event)"
+  (deleteClick)="onDelete($event)"
+>
+</app-data-table>
