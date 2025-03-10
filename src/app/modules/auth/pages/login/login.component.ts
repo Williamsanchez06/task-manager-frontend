@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.maxLength(20)]]
     });
   }
 
@@ -45,19 +45,16 @@ export class LoginComponent implements OnInit {
 
     const { email, password } = this.loginForm.value;
 
-    this.authService.login(email, password).subscribe(
-      response => {
-        if (response) {
-          this.alertService.success('Iniciaste sesión correctamente.');
-          this.router.navigate(['/tasks']);
-        }
+    this.authService.login(email, password).subscribe({
+      next: () => {
         this.loader = false;
+        this.alertService.success('Iniciaste sesión correctamente.');
+        this.router.navigate(['/tasks']);
       },
-      error => {
+      error: () => {
         this.loader = false;
-        this.alertService.error(error.error.message);
       }
-    );
+    });
 
   }
 }

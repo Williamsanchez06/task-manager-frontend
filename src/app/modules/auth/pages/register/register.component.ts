@@ -19,10 +19,11 @@ export class RegisterComponent {
               private alertService: AlertService,
               private registerService: RegisterService
   ) {
+
     this.registerForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
       confirmPassword: ['', Validators.required]
     });
   }
@@ -43,10 +44,15 @@ export class RegisterComponent {
       return;
     }
 
-    const { email, password, name } = this.registerForm.value;
+    const { email, password, name, confirmPassword } = this.registerForm.value;
 
-    this.registerService.register(name, email, password).subscribe(response => {
-      if (response) {
+    if (password !== confirmPassword) {
+      this.alertService.error('Las contraseñas deben ser iguales.');
+      return;
+    }
+
+    this.registerService.register(name, email, password).subscribe({
+      next: () => {
         this.alertService.success('Usuario creado exitosamente. Por favor, inicia sesión.');
         this.router.navigate(['/login']);
       }

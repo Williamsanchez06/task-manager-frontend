@@ -9,19 +9,19 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Nombre</mat-label>
-      <input matInput type="text" formControlName="name">
+      <input matInput type="text" formControlName="name" appValidateErrors>
       <mat-icon matSuffix>person</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Correo</mat-label>
-      <input matInput type="email" formControlName="email">
+      <input matInput type="email" formControlName="email" appValidateErrors>
       <mat-icon matSuffix>mail</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Contraseña</mat-label>
-      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" appValidateErrors>
       <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
         <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
       </button>
@@ -29,7 +29,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Confirmar Contraseña</mat-label>
-      <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+      <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" appValidateErrors>
       <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPasswordVisibility()">
         <mat-icon>{{ hideConfirmPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
       </button>

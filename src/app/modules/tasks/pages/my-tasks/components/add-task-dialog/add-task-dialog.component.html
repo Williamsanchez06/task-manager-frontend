@@ -14,14 +14,14 @@
     <!-- Campo Título -->
     <mat-form-field appearance="outline">
       <mat-label>Título</mat-label>
-      <input matInput type="text" formControlName="title">
+      <input matInput type="text" formControlName="title" appValidateErrors>
       <mat-icon matSuffix>title</mat-icon>
     </mat-form-field>
 
     <!-- Campo Descripción -->
     <mat-form-field appearance="outline">
       <mat-label>Descripción</mat-label>
-      <textarea matInput formControlName="description"></textarea>
+      <textarea matInput formControlName="description" appValidateErrors></textarea>
     </mat-form-field>
 
     <!-- Campo Estado -->

@@ -15,13 +15,13 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Correo</mat-label>
-      <input matInput type="text" formControlName="email">
+      <input matInput type="text" formControlName="email" appValidateErrors>
       <mat-icon matSuffix>mail</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Contraseña</mat-label>
-      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" appValidateErrors>
       <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
         <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
       </button>
