@@ -14,18 +14,18 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Título</mat-label>
-      <input matInput type="text" formControlName="title">
+      <input matInput type="text" formControlName="title" appValidateErrors>
       <mat-icon matSuffix>title</mat-icon>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Descripción</mat-label>
-      <textarea matInput formControlName="description"></textarea>
+      <textarea matInput formControlName="description" appValidateErrors></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Estado</mat-label>
-      <mat-select formControlName="status">
+      <mat-select formControlName="status" appValidateErrors>
         <mat-option value="PENDIENTE">Pendiente</mat-option>
         <mat-option value="COMPLETADO">Completada</mat-option>
       </mat-select>
@@ -33,7 +33,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Transferir esta tarea</mat-label>
-      <mat-select formControlName="transfer">
+      <mat-select formControlName="transfer" appValidateErrors>
         <mat-option value="no">No</mat-option>
         <mat-option value="yes">Sí</mat-option>
       </mat-select>
@@ -41,7 +41,7 @@
 
     <mat-form-field appearance="outline" *ngIf="updateTaskForm.get('transfer')?.value === 'yes'">
       <mat-label>Selecciona el usuario</mat-label>
-      <mat-select formControlName="transferUser">
+      <mat-select formControlName="transferUser" appValidateErrors>
         <mat-option *ngFor="let user of users" [value]="user.id">
           {{ user.name }} - {{ user.email }}
         </mat-option>

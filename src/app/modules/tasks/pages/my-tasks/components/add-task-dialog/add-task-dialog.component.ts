@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from "@angular/material/dialog";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from "@angular/material/dialog";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MyTaskService} from "../../services/my-task.service";
 import {AlertService} from "../../../../../../core/services/alert/alert.service";
 import {TaskRequestCreate} from "../../interfaces/my-task.interface";
@@ -21,13 +21,14 @@ export class AddTaskDialogComponent implements OnInit {
     private alertService: AlertService
   ) {
     this.registerTaskForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      status: ['PENDIENTE', Validators.required]
+      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
+      description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      status: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   onCancel(): void {
     this.dialogRef.close();
@@ -38,14 +39,11 @@ export class AddTaskDialogComponent implements OnInit {
       const taskData: TaskRequestCreate = this.registerTaskForm.value;
 
       this.taskService.createTask(taskData).subscribe({
-          next: (task: Task) => {
-            this.alertService.success('Tarea creada correctamente');
-            this.dialogRef.close(task);
-          },
-          error: (error) => {
-            this.alertService.error('Error al crear la tarea');
-          }
-        });
+        next: (task: Task) => {
+          this.alertService.success('Tarea creada correctamente');
+          this.dialogRef.close(task);
+        }
+      });
     }
   }
 }

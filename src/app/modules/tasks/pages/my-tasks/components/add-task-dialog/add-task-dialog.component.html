@@ -27,7 +27,7 @@
     <!-- Campo Estado -->
     <mat-form-field appearance="outline">
       <mat-label>Estado</mat-label>
-      <mat-select formControlName="status">
+      <mat-select formControlName="status" appValidateErrors>
         <mat-option value="PENDIENTE">Pendiente</mat-option>
         <mat-option value="COMPLETADO">Completada</mat-option>
       </mat-select>

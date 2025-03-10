@@ -31,11 +31,11 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
   ) {
     this.updateTaskForm = this.fb.group({
       id: [data ? data.id : ''],
-      title: [data ? data.title : '', Validators.required],
-      description: [data ? data.description : '', Validators.required],
+      title: [data ? data.title : '',  [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
+      description: [data ? data.description : '',  [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       status: [data ? data.status : 'PENDIENTE', Validators.required],
       transfer: ['no'],
-      transferUser: [{ value: '', disabled: true }]
+      transferUser: [{ value: '', disabled: true }, [Validators.required]]
     });
   }
 
@@ -71,9 +71,6 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
     this.userService.getUser().subscribe({
       next: ({ data }) => {
         this.users = data;
-      },
-      error: () => {
-        this.alertService.error('Error al obtener usuarios');
       }
     });
   }
@@ -95,31 +92,30 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
     const taskData : TaskRequestUpdate = { title, description, status };
 
     this.taskService.updateTask(id, taskData).subscribe({
-      next: (response) => {
+      next: () => {
         this.alertService.success('Tarea actualizada exitosamente');
-        this.dialogRef.close(response);
-      },
-      error: (err) => {
-        this.alertService.error('Error al actualizar la tarea');
+        this.dialogRef.close(true);
       }
     });
   }
 
 
   onTransferTask(): void {
+    const transferUserControl = this.updateTaskForm.get('transferUser');
+
+    if (transferUserControl?.invalid) {
+      transferUserControl.markAsTouched();
+      return;
+    }
 
     const { id, transferUser } = this.updateTaskForm.getRawValue();
 
     this.taskService.shareTask(id, transferUser).subscribe({
-      next: (response) => {
-        this.alertService.success('Tarea trasnferida exitosamente');
-        this.dialogRef.close(response);
-      },
-      error: (err) => {
-        this.alertService.error('Error al actualizar la tarea');
+      next: () => {
+        this.alertService.success('Tarea transferida exitosamente');
+        this.dialogRef.close(true);
       }
     });
-
   }
 
   onCancel(): void {
