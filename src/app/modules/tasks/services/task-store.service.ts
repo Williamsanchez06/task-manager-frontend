@@ -36,7 +36,6 @@ export class TasksStoreService {
   // Cargar tareas propias
   loadUserTasks(page: number, pageSize: number, search: string = ''): void {
     this.myTaskService.getTasks(page, pageSize, search).subscribe(response => {
-      // La API retorna las tareas propias en response.tasks y el total en response.total
       this.tasksSubject.next(response.tasks);
       this.totalRecordsSubject.next(response.total);
     });
@@ -45,7 +44,6 @@ export class TasksStoreService {
   // Cargar tareas compartidas y actualizar el estado global
   loadSharedTasks(page: number, pageSize: number): void {
     this.receivedTaskService.getSharedTasks(page, pageSize).subscribe(response => {
-      console.log('Tareas compartidas recibidas:', response.tasks); // Verifica la respuesta
       this.sharedTasksSubject.next(response.tasks);
       this.totalSharedRecordsSubject.next(response.total);
     });
