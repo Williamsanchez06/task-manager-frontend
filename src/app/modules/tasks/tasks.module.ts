@@ -11,7 +11,6 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import { ReceivedTasksComponent } from './pages/received-tasks/pages/received-tasks/received-tasks.component';
-import { SharedTasksComponent } from './pages/shared-tasks/pages/shared-tasks/shared-tasks.component';
 import { TasksLayoutComponent } from './layouts/tasks-layout/tasks-layout.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { TasksMenuComponent } from './layouts/components/tasks-menu/tasks-menu.component';
@@ -24,7 +23,6 @@ import { DeleteTaskDialogComponent } from './components/delete-task-dialog/delet
   declarations: [
     TaskListComponent,
     ReceivedTasksComponent,
-    SharedTasksComponent,
     TasksLayoutComponent,
     TasksMenuComponent,
     AddTaskDialogComponent,
