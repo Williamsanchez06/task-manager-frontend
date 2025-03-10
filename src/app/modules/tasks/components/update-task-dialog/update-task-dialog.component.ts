@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { TaskRequestUpdate, TasksI, User } from "../../interfaces/tasks.interface";
 import { UserService } from "../../services/user.service";
 import { AlertService } from "../../../../core/services/alert/alert.service";
-import {TasksStoreService} from "../../services/task-store.service";
+import { TasksStoreService } from "../../services/task-store.service";
 
 @Component({
   selector: 'app-update-task-dialog',
@@ -14,7 +14,6 @@ import {TasksStoreService} from "../../services/task-store.service";
   styleUrls: ['./update-task-dialog.component.css']
 })
 export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
-
   updateTaskForm: FormGroup;
   users: User[] = [];
   isTransferUser = false;
@@ -40,24 +39,21 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Suscribirse a los cambios en el campo "transfer" para habilitar/deshabilitar controles
     this.updateTaskForm.get('transfer')?.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(value => {
         const transferUserControl = this.updateTaskForm.get('transferUser');
-        if (value === 'yes') {
-          this.isTransferUser = true;
+        this.isTransferUser = value === 'yes';
+
+        if (this.isTransferUser) {
           transferUserControl?.enable();
           transferUserControl?.setValidators(Validators.required);
-          // Deshabilitar campos que no se usan al transferir
           this.updateTaskForm.get('title')?.disable();
           this.updateTaskForm.get('description')?.disable();
           this.updateTaskForm.get('status')?.disable();
         } else {
-          this.isTransferUser = false;
           transferUserControl?.disable();
           transferUserControl?.clearValidators();
-          // Habilitar de nuevo los controles
           this.updateTaskForm.get('title')?.enable();
           this.updateTaskForm.get('description')?.enable();
           this.updateTaskForm.get('status')?.enable();
@@ -72,26 +68,17 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
     this.userService.getUser()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: ({ data }) => {
-          this.users = data;
-        }
+        next: ({ data }) => this.users = data
       });
   }
 
-  // Maneja la acción según si se actualiza o se transfiere la tarea
   handleTaskAction(): void {
-    if (this.isTransferUser) {
-      this.onTransferTask();
-    } else {
-      this.onUpdateTask();
-    }
+    this.isTransferUser ? this.onTransferTask() : this.onUpdateTask();
   }
 
-  // Actualizar la tarea usando el store
   onUpdateTask(): void {
-    if (this.updateTaskForm.invalid) {
-      return;
-    }
+    if (this.updateTaskForm.invalid) return;
+
     const { id, title, description, status } = this.updateTaskForm.getRawValue();
     const taskData: TaskRequestUpdate = { title, description, status };
 
@@ -105,11 +92,9 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
       });
   }
 
-  // Transferir (compartir) la tarea usando el store
   onTransferTask(): void {
-    const transferUserControl = this.updateTaskForm.get('transferUser');
-    if (transferUserControl?.invalid) {
-      transferUserControl.markAsTouched();
+    if (this.updateTaskForm.get('transferUser')?.invalid) {
+      this.updateTaskForm.get('transferUser')?.markAsTouched();
       return;
     }
 
