@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {environment} from "../../../../../../environments/environment";
-import {TaskListResponse} from "../interfaces/received-tasks";
-import {EndPoints} from "../../../../../core/utils/end-point";
+import {environment} from "../../../../environments/environment";
+import {TaskListResponse} from "../pages/received-tasks/interfaces/received-tasks";
+import {EndPoints} from "../../../core/utils/end-point";
 
 @Injectable({
   providedIn: 'root'

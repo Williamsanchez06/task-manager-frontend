@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MyTaskService} from "../../services/my-task.service";
-import {AlertService} from "../../../../../../core/services/alert/alert.service";
-import {TaskRequestCreate} from "../../interfaces/my-task.interface";
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from "@angular/material/dialog";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AlertService } from "../../../../../../core/services/alert/alert.service";
+import {TasksStoreService} from "../../../../services/task-store.service";
+import {TaskRequestCreate, TasksI} from "../../../../interfaces/tasks.interface";
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -17,7 +17,7 @@ export class AddTaskDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddTaskDialogComponent>,
-    private taskService: MyTaskService,
+    private tasksStore: TasksStoreService,
     private alertService: AlertService
   ) {
     this.registerTaskForm = this.fb.group({
@@ -27,8 +27,7 @@ export class AddTaskDialogComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onCancel(): void {
     this.dialogRef.close();
@@ -38,8 +37,8 @@ export class AddTaskDialogComponent implements OnInit {
     if (this.registerTaskForm.valid) {
       const taskData: TaskRequestCreate = this.registerTaskForm.value;
 
-      this.taskService.createTask(taskData).subscribe({
-        next: (task: Task) => {
+      this.tasksStore.createTask(taskData).subscribe({
+        next: (task: TasksI) => {
           this.alertService.success('Tarea creada correctamente');
           this.dialogRef.close(task);
         }
@@ -47,4 +46,3 @@ export class AddTaskDialogComponent implements OnInit {
     }
   }
 }
-

@@ -5,8 +5,8 @@ export interface TasksI {
   title: string;
   description: string;
   status: TaskStatus;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   ownerId: string;
 }
 
@@ -21,6 +21,7 @@ export interface TaskBase {
   description: string;
   status: TaskStatus;
 }
+export interface TaskRequestCreate extends TaskBase {}
 
 export interface TaskRequestUpdate extends Partial<TaskBase> {}
 

@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { AlertService } from "../../../../core/services/alert/alert.service";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {TaskRequestUpdate, TasksI, User} from "../../interfaces/tasks.interface";
-import {TaskService} from "../../services/task.service";
-import {UserService} from "../../services/user.service";
+import { TaskRequestUpdate, TasksI, User } from "../../interfaces/tasks.interface";
+import { UserService } from "../../services/user.service";
+import { AlertService } from "../../../../core/services/alert/alert.service";
+import {TasksStoreService} from "../../services/task-store.service";
 
 @Component({
   selector: 'app-update-task-dialog',
@@ -24,15 +24,15 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<UpdateTaskDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data : TasksI,
-    private taskService: TaskService,
+    @Inject(MAT_DIALOG_DATA) public data: TasksI,
+    private tasksStore: TasksStoreService,
     private userService: UserService,
     private alertService: AlertService
   ) {
     this.updateTaskForm = this.fb.group({
       id: [data ? data.id : ''],
-      title: [data ? data.title : '',  [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
-      description: [data ? data.description : '',  [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      title: [data ? data.title : '', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]],
+      description: [data ? data.description : '', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       status: [data ? data.status : 'PENDIENTE', Validators.required],
       transfer: ['no'],
       transferUser: [{ value: '', disabled: true }, [Validators.required]]
@@ -40,6 +40,7 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Suscribirse a los cambios en el campo "transfer" para habilitar/deshabilitar controles
     this.updateTaskForm.get('transfer')?.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(value => {
@@ -48,7 +49,7 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
           this.isTransferUser = true;
           transferUserControl?.enable();
           transferUserControl?.setValidators(Validators.required);
-          // Deshabilitamos los controles que no se usarán en la transferencia
+          // Deshabilitar campos que no se usan al transferir
           this.updateTaskForm.get('title')?.disable();
           this.updateTaskForm.get('description')?.disable();
           this.updateTaskForm.get('status')?.disable();
@@ -56,7 +57,7 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
           this.isTransferUser = false;
           transferUserControl?.disable();
           transferUserControl?.clearValidators();
-          // Habilitamos nuevamente los controles al volver al modo edición normal
+          // Habilitar de nuevo los controles
           this.updateTaskForm.get('title')?.enable();
           this.updateTaskForm.get('description')?.enable();
           this.updateTaskForm.get('status')?.enable();
@@ -68,14 +69,17 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
   }
 
   loadUsers(): void {
-    this.userService.getUser().subscribe({
-      next: ({ data }) => {
-        this.users = data;
-      }
-    });
+    this.userService.getUser()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: ({ data }) => {
+          this.users = data;
+        }
+      });
   }
 
-  handleTaskAction (): void {
+  // Maneja la acción según si se actualiza o se transfiere la tarea
+  handleTaskAction(): void {
     if (this.isTransferUser) {
       this.onTransferTask();
     } else {
@@ -83,39 +87,41 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Actualizar la tarea usando el store
   onUpdateTask(): void {
     if (this.updateTaskForm.invalid) {
       return;
     }
-
     const { id, title, description, status } = this.updateTaskForm.getRawValue();
-    const taskData : TaskRequestUpdate = { title, description, status };
+    const taskData: TaskRequestUpdate = { title, description, status };
 
-    this.taskService.updateTask(id, taskData).subscribe({
-      next: () => {
-        this.alertService.success('Tarea actualizada exitosamente');
-        this.dialogRef.close(true);
-      }
-    });
+    this.tasksStore.updateTask(id, taskData)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.alertService.success('Tarea actualizada exitosamente');
+          this.dialogRef.close(true);
+        }
+      });
   }
 
-
+  // Transferir (compartir) la tarea usando el store
   onTransferTask(): void {
     const transferUserControl = this.updateTaskForm.get('transferUser');
-
     if (transferUserControl?.invalid) {
       transferUserControl.markAsTouched();
       return;
     }
-
     const { id, transferUser } = this.updateTaskForm.getRawValue();
 
-    this.taskService.shareTask(id, transferUser).subscribe({
-      next: () => {
-        this.alertService.success('Tarea transferida exitosamente');
-        this.dialogRef.close(true);
-      }
-    });
+    this.tasksStore.shareTask(id, transferUser)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: () => {
+          this.alertService.success('Tarea transferida exitosamente');
+          this.dialogRef.close(true);
+        }
+      });
   }
 
   onCancel(): void {
@@ -127,4 +133,3 @@ export class UpdateTaskDialogComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 }
-
