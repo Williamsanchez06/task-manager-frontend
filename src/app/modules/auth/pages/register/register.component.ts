@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from "@angular/router";
 import {AlertService} from "../../../../core/services/alert/alert.service";
-import {RegisterService} from "../../services/register.service";
+import {UserService} from "../../../../core/services/user/user.service";
 
 @Component({
   selector: 'app-register',
@@ -17,7 +17,7 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder,
               private router:Router,
               private alertService: AlertService,
-              private registerService: RegisterService
+              private userService: UserService
   ) {
 
     this.registerForm = this.fb.group({
@@ -51,7 +51,7 @@ export class RegisterComponent {
       return;
     }
 
-    this.registerService.register(name, email, password).subscribe({
+    this.userService.register(name, email, password).subscribe({
       next: () => {
         this.alertService.success('Usuario creado exitosamente. Por favor, inicia sesión.');
         this.router.navigate(['/login']);
