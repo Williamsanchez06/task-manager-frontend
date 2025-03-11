@@ -5,3 +5,5 @@ export interface TaskIResponse {
   tasks: TasksI[];
   total: number;
 }
+
+export interface TaskCreateResponse extends TasksI {}

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {environment} from "../../../../../../environments/environment";
 import {EndPoints} from "../../../../../core/utils/end-point";
 import {TaskRequestCreate} from "../../../interfaces/tasks.interface";
-import {TaskIResponse} from "../interfaces/my-tasks.interface";
+import {TaskCreateResponse, TaskIResponse} from "../interfaces/my-tasks.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,8 @@ export class MyTaskService {
     return this.http.get<TaskIResponse>(`${this.apiUrl}${EndPoints.TASKS}`, { params });
   }
 
-  createTask(taskData: TaskRequestCreate ): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}${EndPoints.TASKS}`, taskData);
+  createTask(taskData: TaskRequestCreate ): Observable<TaskCreateResponse> {
+    return this.http.post<TaskCreateResponse>(`${this.apiUrl}${EndPoints.TASKS}`, taskData);
   }
 
 }
