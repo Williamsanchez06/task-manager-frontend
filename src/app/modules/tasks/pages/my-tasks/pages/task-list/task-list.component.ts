@@ -6,8 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DataTableColumn } from '../../../../../../core/interfaces/data-table.interface';
 import { TasksI } from '../../../../interfaces/tasks.interface';
 import { AddTaskDialogComponent } from '../../components/add-task-dialog/add-task-dialog.component';
-import { UpdateTaskDialogComponent } from '../../../../components/update-task-dialog/update-task-dialog.component';
-import { DeleteTaskDialogComponent } from '../../../../components/delete-task-dialog/delete-task-dialog.component';
+import { UpdateTaskDialogComponent } from '../../../../dialogs/update-task-dialog/update-task-dialog.component';
+import { DeleteTaskDialogComponent } from '../../../../dialogs/delete-task-dialog/delete-task-dialog.component';
 import { TasksStoreService } from "../../../../services/task-store.service";
 
 @Component({

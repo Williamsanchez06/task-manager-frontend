@@ -4,9 +4,9 @@ import { takeUntil } from 'rxjs/operators';
 import { DataTableColumn } from '../../../../../../core/interfaces/data-table.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
-import { TaskI } from '../../interfaces/received-tasks';
-import { DeleteTaskDialogComponent } from '../../../../components/delete-task-dialog/delete-task-dialog.component';
-import { UpdateTaskDialogComponent } from '../../../../components/update-task-dialog/update-task-dialog.component';
+import { TaskI } from '../../interfaces/received-tasks.interface';
+import { DeleteTaskDialogComponent } from '../../../../dialogs/delete-task-dialog/delete-task-dialog.component';
+import { UpdateTaskDialogComponent } from '../../../../dialogs/update-task-dialog/update-task-dialog.component';
 import { TasksStoreService } from "../../../../services/task-store.service";
 
 @Component({

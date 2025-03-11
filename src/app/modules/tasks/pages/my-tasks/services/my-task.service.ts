@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {environment} from "../../../../environments/environment";
-import {EndPoints} from "../../../core/utils/end-point";
-import {TaskIResponse, TaskRequestCreate} from "../interfaces/tasks.interface";
+import {environment} from "../../../../../../environments/environment";
+import {EndPoints} from "../../../../../core/utils/end-point";
+import {TaskRequestCreate} from "../../../interfaces/tasks.interface";
+import {TaskIResponse} from "../interfaces/my-tasks.interface";
 
 @Injectable({
   providedIn: 'root'

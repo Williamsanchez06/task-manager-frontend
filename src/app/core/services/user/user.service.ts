@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {environment} from "../../../../environments/environment";
-import {UserResponse} from "../interfaces/tasks.interface";
-import {EndPoints} from "../../../core/utils/end-point";
+import {EndPoints} from "../../utils/end-point";
+import {UserResponse} from "../../interfaces/user.interface";
 @Injectable({
   providedIn: 'root'
 })

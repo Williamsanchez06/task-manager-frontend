@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TaskRequestUpdate, TasksI, User } from "../../interfaces/tasks.interface";
-import { UserService } from "../../services/user.service";
+import { TaskRequestUpdate, TasksI } from "../../interfaces/tasks.interface";
+import { UserService } from "../../../../core/services/user/user.service";
 import { AlertService } from "../../../../core/services/alert/alert.service";
 import { TasksStoreService } from "../../services/task-store.service";
+import {User} from "../../../../core/interfaces/user.interface";
 
 @Component({
   selector: 'app-update-task-dialog',

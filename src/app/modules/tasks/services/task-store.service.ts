@@ -3,9 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TaskRequestCreate, TaskRequestUpdate, TasksI } from '../interfaces/tasks.interface';
 import { TaskService } from './task.service';
-import { MyTaskService } from './my-task.service';
-import { ReceivedTaskService } from './received-task.service';
-import { TaskI } from '../pages/received-tasks/interfaces/received-tasks';
+import { MyTaskService } from '../pages/my-tasks/services/my-task.service';
+import { ReceivedTaskService } from '../pages/received-tasks/services/received-task.service';
+import { TaskI } from '../pages/received-tasks/interfaces/received-tasks.interface';
 
 @Injectable({
   providedIn: 'root'
