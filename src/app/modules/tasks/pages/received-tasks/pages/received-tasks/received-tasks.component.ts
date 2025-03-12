@@ -20,8 +20,8 @@ export class ReceivedTasksComponent implements OnInit, OnDestroy {
     { key: 'title', label: 'Título' },
     { key: 'status', label: 'Estado' },
     { key: 'description', label: 'Descripción' },
-    { key: 'name', label: 'Quien mandó la tarea' },
-    { key: 'email', label: 'Email de quien la mandó' },
+    { key: 'name', label: 'Quien creo la tarea' },
+    { key: 'email', label: 'Email de quien creo la tarea' },
   ];
 
   data: TaskI[] = [];
